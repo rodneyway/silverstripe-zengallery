@@ -50,6 +50,7 @@ class ZenGalleryPage extends Page {
 	 * Creates a folder for this gallery if it doesn't exist and saves it
 	 */
 	protected function updateFolder() {
+
 		$folder = self::$gallery_assets_folder . '/' . $this->ID;
 		
 		if(class_exists('Multisites')){
@@ -57,6 +58,7 @@ class ZenGalleryPage extends Page {
 		}
 
 		$folder = Folder::find_or_make($folder);
+
 		$this->ImageFolderID = $folder->ID;
 		$this->write();
 	}
@@ -70,6 +72,9 @@ class ZenGalleryPage extends Page {
 	}
 
 
+	/**
+	 * Gets a paginated list of children that are of type ZenGalleryPage 
+	 */
 	public function getPagedAlbums(){
 		$list 	= $this->Albums();
 		$limit 	= $this->ItemsPerPage ? $this->ItemsPerPage : 9999999;
@@ -79,6 +84,9 @@ class ZenGalleryPage extends Page {
 	}
 
 
+	/**
+	 * Gets a paginated list of this pages gallery images
+	 */
 	public function getPagedImages(){
 		$list 	= $this->Images();
 		$limit 	= $this->ItemsPerPage ? $this->ItemsPerPage : 9999999;
@@ -88,6 +96,10 @@ class ZenGalleryPage extends Page {
 	}
 
 
+	/**
+	 * Gets a paginated list of either albums or images for this page
+	 * depending on whether this page has albums
+	 */
 	public function getPagedItems(){
 		return $this->getPagedAlbums()->exists() ? $this->getPagedAlbums() : $this->getPagedImages();
 	}
@@ -110,5 +122,6 @@ class ZenGalleryPage_Controller extends Page_Controller {
 			Requirements::javascript(ZENGALLERY_MODULE . '/javascript/jquery.lightbox.js');
 			Requirements::javascript(ZENGALLERY_MODULE . '/javascript/zengallery.js');
 		}
+		Requirements::css(ZENGALLERY_MODULE . '/css/zengallery.css');
 	}
 }

@@ -1,12 +1,12 @@
 (function($){
 	$(function(){
 		
-		$('#image-gallery a').lightBox({
+		$('#zen-gallery a').lightBox({
 			fixedNavigation:true,
-			imageLoading: 	'zengallery/images/lightbox-btn-loading.gif',
-			imageBtnClose: 	'zengallery/images/lightbox-btn-close.gif',
-			imageBtnPrev: 	'zengallery/images/lightbox-btn-prev.gif',
-			imageBtnNext: 	'zengallery/images/lightbox-btn-next.gif'
+			imageLoading: 	'zen-gallery/images/lightbox-btn-loading.gif',
+			imageBtnClose: 	'zen-gallery/images/lightbox-btn-close.gif',
+			imageBtnPrev: 	'zen-gallery/images/lightbox-btn-prev.gif',
+			imageBtnNext: 	'zen-gallery/images/lightbox-btn-next.gif'
 		});	
 
 	});
