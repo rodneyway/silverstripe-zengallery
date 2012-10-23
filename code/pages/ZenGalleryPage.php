@@ -5,6 +5,10 @@
  */
 class ZenGalleryPage extends Page {
 
+
+	public static $gallery_assets_folder = 'galleries';
+
+
 	public static $db = array(
 		'ItemsPerPage' => 'Int'
 	);
@@ -35,7 +39,7 @@ class ZenGalleryPage extends Page {
 			$this->updateFolder();
 		}
 
-		$imgs = UploadField::create('Images','Upload Image Files')->setFolderName($this->ImageFolder()->Filename);
+		$imgs = UploadField::create('Images','Upload Image Files')->setFolderName(substr($this->ImageFolder()->Filename, 7));
 		$fields->addFieldToTab("Root.Gallery", $imgs);
 
 		return $fields;
@@ -46,7 +50,13 @@ class ZenGalleryPage extends Page {
 	 * Creates a folder for this gallery if it doesn't exist and saves it
 	 */
 	protected function updateFolder() {
-		$folder = Folder::find_or_make('galleries/' . $this->ID);
+		$folder = self::$gallery_assets_folder . '/' . $this->ID;
+		
+		if(class_exists('Multisites')){
+			$folder =  Multisites::inst()->getAssetsFolder()->Name . '/' . $folder;
+		}
+
+		$folder = Folder::find_or_make($folder);
 		$this->ImageFolderID = $folder->ID;
 		$this->write();
 	}
