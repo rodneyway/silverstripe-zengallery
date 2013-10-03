@@ -54,7 +54,10 @@ class ZenGalleryPage extends Page {
 		$folder = self::$gallery_assets_folder . '/' . $this->ID;
 		
 		if(class_exists('Multisites')){
-			$folder =  Multisites::inst()->getAssetsFolder()->Name . '/' . $folder;
+			$siteFolder = $this->Site()->Folder();
+			if($siteFolder->exists()){
+				$folder =  $siteFolder->Name . '/' . $folder;	
+			}
 		}
 
 		$folder = Folder::find_or_make($folder);
