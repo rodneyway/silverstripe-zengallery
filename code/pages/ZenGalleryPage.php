@@ -35,10 +35,6 @@ class ZenGalleryPage extends Page {
 
 		$fields->addFieldToTab("Root.Gallery", new NumericField('ItemsPerPage', 'Items Per Page'));
 
-		if (!$this->ImageFolderID) {
-			$this->updateFolder();
-		}
-
 		$imgs = UploadField::create('Images','Upload Image Files')->setFolderName(substr($this->ImageFolder()->Filename, 7));
 		$fields->addFieldToTab("Root.Gallery", $imgs);
 
